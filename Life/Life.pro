@@ -34,4 +34,4 @@ HEADERS  += \
     GameData.h \
     LifeBuilder.h \
     ../COMMON/INTERFACES/AbstractGameBuilder.h \
-    ../COMMON/sign.h \
+    ../COMMON/MISC/sign.h \
