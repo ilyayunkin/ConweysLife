@@ -36,6 +36,9 @@ private slots:
 public slots:
     void tileClicked(int col, int row);
     void start();
+signals:
+    /// Сигнализирует о начале новой игры.
+    void gameReStarted();
 };
 
 #endif // JUSTANOTHERLINES_H

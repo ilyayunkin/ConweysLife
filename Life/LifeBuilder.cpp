@@ -23,6 +23,10 @@ void ColorLinesBuilder::createGame(AbstractColorLinesGame *&game,
         mainLayout->addWidget(startButton);
         QObject::connect(startButton, SIGNAL(clicked(bool)),
                          newGame, SLOT(start()));
+        QObject::connect(startButton, SIGNAL(clicked(bool)),
+                         startButton, SLOT(hide()));
+        QObject::connect(newGame, SIGNAL(gameReStarted()),
+                         startButton, SLOT(show()));
     }
     {
         /// Виджет игрового поля

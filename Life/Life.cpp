@@ -37,6 +37,7 @@ void Life::lose()
     if(b == QMessageBox::Yes)
     {
         data = QSharedPointer<LifeGameData>(new LifeGameData(this));
+        emit gameReStarted();
     }else{
         emit quitToMenu();
     }
