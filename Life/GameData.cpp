@@ -5,6 +5,12 @@
 
 #include <time.h>
 
+enum
+{
+    /// Количество тайлов в строке или столбце.
+    DIMENSION = 30,
+};
+
 LifeGameData::LifeGameData(Life *game, unsigned fieldSide)
     : fieldSide(fieldSide == 0 ? DIMENSION : fieldSide),
       lose(false),

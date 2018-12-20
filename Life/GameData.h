@@ -9,12 +9,6 @@
 #include "Life.h"
 #include "COMMON/MAP/ColorLinesTileMap.h"
 
-enum
-{
-    /// Количество тайлов в строке или столбце.
-    DIMENSION = 9,
-};
-
 class LifeGameData: public QObject
 {
     Q_OBJECT
