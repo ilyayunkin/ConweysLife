@@ -6,10 +6,10 @@
 #include <time.h>
 
 LifeGameData::LifeGameData(Life *game, unsigned fieldSide)
-    : lose(false),
+    : fieldSide(fieldSide == 0 ? DIMENSION : fieldSide),
+      lose(false),
       started(false),
       staticState(false),
-      fieldSide(fieldSide == 0 ? DIMENSION : fieldSide),
       tileMap(this->fieldSide, this->fieldSide),
       selection(0),
       game(game)
@@ -31,7 +31,7 @@ int LifeGameData::getColCount() const
     return fieldSide;
 }
 
-int LifeGameData::countNei(ColorLinesTile *tile)
+static int countNei(ColorLinesTile *tile)
 {
     int nei = 0;
     ColorLinesTile *l = tile->getLeftTile();

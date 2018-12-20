@@ -38,7 +38,6 @@ private:
     LifeGameData();
     explicit LifeGameData(LifeGameData&);
     LifeGameData &operator =(const LifeGameData&);
-    int countNei(ColorLinesTile *tile);
 
 public slots:
 public:
