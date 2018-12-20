@@ -39,7 +39,6 @@ private:
     LifeGameData();
     explicit LifeGameData(LifeGameData&);
     LifeGameData &operator =(const LifeGameData&);
-    bool updateLine(int row);
     int countNei(ColorLinesTile *tile);
 
 public slots:

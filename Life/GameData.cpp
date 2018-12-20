@@ -43,42 +43,42 @@ int LifeGameData::countNei(ColorLinesTile *tile)
     return nei;
 }
 
-bool LifeGameData::updateLine(int row)
-{
-    bool changed = false;
-
-    ColorLinesTile *left = tileMap.topLeft->getTile(0, row);
-    ColorLinesTile *tile = left;
-
-    while(tile != 0){
-        int neiCount = countNei(tile);
-        if(tile->getColor() == ColorLinesTile::NONE){
-            if(neiCount == 3){
-                tileMap.set(tile, ColorLinesTile::GREEN);
-                changed = true;
-            }
-        }else
-        {
-            if(neiCount == 3 || neiCount == 2){
-            }else{
-                tileMap.free(tile);
-                changed = true;
-            }
-        }
-        tile = tile->getRightTile();
-    }
-
-    return changed;
-}
-
 void LifeGameData::update()
 {
     bool changed = false;
 
+    QList<ColorLinesTile *> toSet;
+    QList<ColorLinesTile *> toFree;
+
     for(int row = 0; row < DIMENSION; row++){
-        if(updateLine(row)){
-            changed = true;
+        ColorLinesTile *left = tileMap.topLeft->getTile(0, row);
+        ColorLinesTile *tile = left;
+        while(tile != 0){
+            int neiCount = countNei(tile);
+            if(tile->getColor() == ColorLinesTile::NONE){
+                if(neiCount == 3){
+                    toSet.push_back(tile);
+                    changed = true;
+                }
+            }else
+            {
+                if(neiCount == 3 || neiCount == 2){
+                }else{
+                    toFree.push_back(tile);
+                    changed = true;
+                }
+            }
+            tile = tile->getRightTile();
         }
+    }
+
+    foreach(ColorLinesTile *t, toSet)
+    {
+        tileMap.set(t, ColorLinesTile::GREEN);
+    }
+    foreach(ColorLinesTile *t, toFree)
+    {
+        tileMap.free(t);
     }
 
     if(!changed){
