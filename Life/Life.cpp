@@ -7,6 +7,7 @@
 #include <assert.h>
 
 #include <QMessageBox>
+#include <QInputDialog>
 #include <QTimer>
 #include <QApplication>
 
@@ -15,9 +16,11 @@
 #include "GameData.h"
 
 Life::Life(QObject *parent)
-    : AbstractColorLinesGame(parent),
-      data(new LifeGameData(this))
+    : AbstractColorLinesGame(parent)
 {    
+    int side = QInputDialog::getInt(0, tr("Enter Universe side"), tr(""), 0, 0);
+    data = QSharedPointer<LifeGameData>(new LifeGameData(this, side));
+
     QTimer *t = new QTimer(this);
     QObject::connect(t, SIGNAL(timeout()), this, SLOT(update()));
     t->start(1000);
@@ -36,7 +39,8 @@ void Life::lose()
             QMessageBox::question(0, tr("Game over!"), tr("Do you want to replay?"));
     if(b == QMessageBox::Yes)
     {
-        data = QSharedPointer<LifeGameData>(new LifeGameData(this));
+        int side = QInputDialog::getInt(0, tr("Enter Universe side"), tr(""), 0, 0);
+        data = QSharedPointer<LifeGameData>(new LifeGameData(this, side));
         emit gameReStarted();
     }else{
         emit quitToMenu();
@@ -45,12 +49,12 @@ void Life::lose()
 
 int Life::getRowCount() const
 {
-    return DIMENSION;
+    return data->getRowCount();
 }
 
 int Life::getColCount() const
 {
-    return DIMENSION;
+    return data->getColCount();
 }
 
 const QString &Life::getStatistics() const

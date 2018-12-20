@@ -5,11 +5,12 @@
 
 #include <time.h>
 
-LifeGameData::LifeGameData(Life *game)
+LifeGameData::LifeGameData(Life *game, unsigned fieldSide)
     : lose(false),
       started(false),
       staticState(false),
-      tileMap(DIMENSION, DIMENSION),
+      fieldSide(fieldSide == 0 ? DIMENSION : fieldSide),
+      tileMap(this->fieldSide, this->fieldSide),
       selection(0),
       game(game)
 {
@@ -18,6 +19,16 @@ LifeGameData::LifeGameData(Life *game)
 static bool isNotFree(ColorLinesTile *tile)
 {
    return (tile != 0) && tile->getColor() != ColorLinesTile::NONE;
+}
+
+int LifeGameData::getRowCount() const
+{
+    return fieldSide;
+}
+
+int LifeGameData::getColCount() const
+{
+    return fieldSide;
 }
 
 int LifeGameData::countNei(ColorLinesTile *tile)
@@ -50,7 +61,7 @@ void LifeGameData::update()
     QList<ColorLinesTile *> toSet;
     QList<ColorLinesTile *> toFree;
 
-    for(int row = 0; row < DIMENSION; row++){
+    for(int row = 0; row < fieldSide; row++){
         ColorLinesTile *left = tileMap.topLeft->getTile(0, row);
         ColorLinesTile *tile = left;
         while(tile != 0){

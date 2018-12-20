@@ -13,14 +13,13 @@ enum
 {
     /// Количество тайлов в строке или столбце.
     DIMENSION = 9,
-    /// Минимальная длина линии одного цвета.
-    MIN_LINE = 5,
 };
 
 class LifeGameData: public QObject
 {
     Q_OBJECT
 
+    int fieldSide;
     bool lose;
     bool started;
     bool staticState; ///<  Система застабилизировалась
@@ -33,7 +32,7 @@ public:
     ColorLinesTile *selection;
     QString statistics;
 
-    explicit LifeGameData(Life *game);
+    explicit LifeGameData(Life *game, unsigned fieldSide = 0);
 private:
     Life *game;
     LifeGameData();
@@ -49,6 +48,8 @@ public:
 
     bool isLose();
     bool isStarted();
+    int getRowCount() const;
+    int getColCount() const;
 };
 
 #endif // ColorLinesGameData_H
