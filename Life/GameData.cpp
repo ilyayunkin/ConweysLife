@@ -12,7 +12,7 @@ enum
 };
 
 LifeGameData::LifeGameData(Life *game, unsigned fieldSide)
-    : fieldSide(fieldSide == 0 ? DIMENSION : fieldSide),
+    : fieldSide(fieldSide == 0 ? int(DIMENSION) : fieldSide),
       lose(false),
       started(false),
       staticState(false),
@@ -89,11 +89,11 @@ void LifeGameData::update()
         }
     }
 
-    foreach(ColorLinesTile *t, toSet)
+    for(ColorLinesTile *t : toSet)
     {
         tileMap.set(t, ColorLinesTile::GREEN);
     }
-    foreach(ColorLinesTile *t, toFree)
+    for(ColorLinesTile *t : toFree)
     {
         tileMap.free(t);
     }
