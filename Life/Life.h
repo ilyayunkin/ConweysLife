@@ -20,12 +20,12 @@ class Life : public AbstractColorLinesGame
     QSharedPointer<LifeGameData> data;
 public:
     explicit Life(QObject *parent = 0);
-    int getRowCount() const;
-    int getColCount() const;
-    const QString &getStatistics() const;
-    ColorLinesTile *getRootTile() const;
-    ColorLinesTile *getSelectedTile() const;
-    QList<ColorLinesTile *> const&getPath() const;
+    int getRowCount() const override;
+    int getColCount() const override;
+    const QString &getStatistics() const override;
+    ColorLinesTile *getRootTile() const override;
+    ColorLinesTile *getSelectedTile() const override;
+    QList<ColorLinesTile *> const&getPath() const override;
 
     /// Обрабатывает случай поражения.
     void lose();
@@ -34,7 +34,7 @@ private slots:
     void update();
 
 public slots:
-    void tileClicked(int col, int row);
+    void tileClicked(int col, int row) override;
     void start();
 signals:
     /// Сигнализирует о начале новой игры.
